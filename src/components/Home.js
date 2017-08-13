@@ -18,8 +18,8 @@ import GSocialTwitter from 'grommet/components/icons/base/SocialTwitter';
 const Home = () => (
   <GBox flex="grow">
     <GBox pad="medium" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-      <GSection appCentered={true} justify="center" align="center" full={true}>
-        <GHeading strong={true} tag="h2" style={{ paddingTop: '50px' }}>WALA</GHeading>
+      <GSection appCentered={true} justify="center" align="center" full={true} style={{ marginTop: '-50px', paddingBottom: '50px' }}>
+        <GHeading strong={true} tag="h2" style={{ paddingTop: '0px' }}>WALA</GHeading>
         <p>
           Last earthquake was 1 day ago.
         </p>
@@ -38,8 +38,9 @@ const Home = () => (
             pad="medium"
             colorIndex="light-2"
             margin="medium"
+            style={{ paddingBottom: '0px' }}
           >
-            <GHeading>Sample</GHeading>
+            <GHeading tag="h3" style={{ marginBottom: '0px' }}>Sample</GHeading>
             <p>Sample description provided</p>
           </GBox>
         </GTile>
@@ -49,7 +50,7 @@ const Home = () => (
             colorIndex="light-2"
             margin="medium"
           >
-            <GHeading>Sample</GHeading>
+            <GHeading tag="h3">Sample</GHeading>
             <p>Sample description provided</p>
           </GBox>
         </GTile>
