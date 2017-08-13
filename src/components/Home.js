@@ -19,7 +19,7 @@ const Home = () => (
   <GBox flex="grow">
     <GBox pad="medium" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
       <GSection appCentered={true} justify="center" align="center" full={true}>
-        <GHeading strong={true} tag="h2" style={{ paddingTop: '12px' }}>WALA</GHeading>
+        <GHeading strong={true} tag="h2" style={{ paddingTop: '50px' }}>WALA</GHeading>
         <p>
           Last earthquake was 1 day ago.
         </p>
