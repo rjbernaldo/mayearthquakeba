@@ -69,14 +69,65 @@ function renderData(features = []) {
           pad="medium"
           colorIndex="light-2"
           margin="medium"
-          style={{ paddingBottom: '0px' }}
+          style={{ paddingBottom: '0px', width: '300px' }}
         >
           <GHeading tag="h3" style={{ marginBottom: '0px' }}>{ heading }</GHeading>
           <p>{ p.place }</p>
+          <p>{ `${timeSince(new Date(p.time))} ago` }</p>
         </GBox>
       </GTile>
     );
   });
+}
+
+
+function formatDate(date) {
+  const monthNames = [
+    'January', 'February', 'March',
+    'April', 'May', 'June', 'July',
+    'August', 'September', 'October',
+    'November', 'December',
+  ];
+
+  const time = formatTime(date);
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+
+  return `${time} ${monthNames[monthIndex]} ${day} ${year}`;
+}
+
+function formatTime(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  const strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function timeSince(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) return `${interval} years`;
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) return `${interval} months`;
+
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) return `${interval} days`;
+
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) return `${interval} hours`;
+
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) return `${interval} minutes`;
+
+  return `${Math.floor(seconds)} seconds`;
 }
 
 export default Home;
