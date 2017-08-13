@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import Homee from '../components/Homee';
-import { fetchData } from '../actions/home';
+import Home from '../components/Home';
 
 const mapStateToProps = (state) => {
   return {
@@ -8,12 +7,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchData: () => {
-      dispatch(fetchData());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
