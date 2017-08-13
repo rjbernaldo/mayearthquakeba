@@ -8,12 +8,10 @@ import GSplit from 'grommet/components/Split';
 import Home from './Home';
 
 const App = () => (
-  <GApp centered={false}>
-    <GBox>
-      <Switch>
-        <Route exact path="/" component={Home} />
-      </Switch>
-    </GBox>
+  <GApp centered={false} inline={true}>
+    <Switch>
+      <Route exact path="/" component={Home} />
+    </Switch>
   </GApp>
 );
 
