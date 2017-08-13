@@ -2,6 +2,24 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+let plugins = [
+  new HtmlWebpackPlugin({
+    title: 'Lines',
+    template: 'src/index.html',
+    inject: 'body',
+  }),
+];
+
+if (process.env.NODE_ENV === 'production') {
+  plugins = plugins.concat([
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+  ]);
+}
+
 module.exports = {
   devServer: {
     historyApiFallback: true,
@@ -29,7 +47,7 @@ module.exports = {
           { loader: 'css-loader' },
           {
             loader: 'sass-loader',
-            options: { includePaths: ['./node_modules', './node_modules/grommet/node_modules'] },
+            options: { includePaths: ['./node_modules'] },
           },
         ],
       },
@@ -40,11 +58,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'mayearthquakeba',
-      template: 'src/index.html',
-      inject: 'body',
-    }),
-  ],
+  plugins,
 };

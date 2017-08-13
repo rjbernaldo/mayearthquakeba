@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "webpack-dev-server --hot --content-base dist/"
+    "dev": "webpack-dev-server --hot --content-base dist/",
+    "clean": "rimraf dist",
+    "build": "npm run clean && NODE_ENV=production ./node_modules/webpack/bin/webpack.js",
+    "start": "NODE_ENV=production npm run build && ./node_modules/babel-cli/bin/babel-node.js .",
+    "now": "npm run build && now ./dist --public",
+    "webpack-dev-server": "webpack-dev-server --progress --color",
+    "serve": "npm run webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -43,6 +49,7 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "next",
-    "redux": "^3.7.1"
+    "redux": "^3.7.1",
+    "rimraf": "^2.6.1"
   }
 }
