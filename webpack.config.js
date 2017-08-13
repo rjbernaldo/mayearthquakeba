@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let plugins = [
   new HtmlWebpackPlugin({
-    title: 'Lines',
+    title: 'mayearthquakeba.com',
     template: 'src/index.html',
     inject: 'body',
   }),

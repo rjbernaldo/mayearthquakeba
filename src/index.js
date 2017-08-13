@@ -1,4 +1,4 @@
-import '../assets/styles/index.scss';
+import 'grommet/scss/vanilla/index.scss';
 
 import React from 'react';
 import { render } from 'react-dom';
