@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import GBox from 'grommet/components/Box';
 import GHeading from 'grommet/components/Heading';
+import GParagraph from 'grommet/components/Paragraph';
 import GSection from 'grommet/components/Section';
 import GFooter from 'grommet/components/Footer';
 import GLabel from 'grommet/components/Label';
@@ -68,6 +69,7 @@ function renderData(features = []) {
   return features.map((feature, i) => {
     const p = feature.properties;
     const heading = `Magnitude ${p.mag}`;
+    const formattedDate = new Date(p.time);
 
     return (
       <GTile key={i}>
@@ -79,7 +81,7 @@ function renderData(features = []) {
         >
           <GHeading tag="h3" style={{ marginBottom: '0px' }}>{ heading }</GHeading>
           <p>{ p.place }</p>
-          <p>{ `${timeSince(new Date(p.time))} ago` }</p>
+          <p>{ `${formatDate(formattedDate)} at ${formatTime(formattedDate)}` }</p>
         </GBox>
       </GTile>
     );
@@ -94,18 +96,17 @@ function formatDate(date) {
     'November', 'December',
   ];
 
-  const time = formatTime(date);
   const day = date.getDate();
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
 
-  return `${time} ${monthNames[monthIndex]} ${day} ${year}`;
+  return `${monthNames[monthIndex]} ${day} ${year}`;
 }
 
 function formatTime(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();
-  const ampm = hours >= 12 ? 'pm' : 'am';
+  const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? '0'+minutes : minutes;
