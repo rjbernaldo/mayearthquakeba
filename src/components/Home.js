@@ -21,9 +21,7 @@ const Home = ({ data }) => {
       <GBox pad="medium" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
         <GSection appCentered={true} justify="center" align="center" full={true} style={{ marginTop: '-50px', paddingBottom: '50px' }}>
           <GHeading strong={true} tag="h2" style={{ paddingTop: '0px' }}>WALA</GHeading>
-          <p>
-            Last earthquake was 1 day ago.
-          </p>
+          { renderLastData(features) }
           <GFooter justify="center" align="center">
             <GBox align="center">
               <GLabel size="small">
@@ -34,9 +32,7 @@ const Home = ({ data }) => {
           </GFooter>
         </GSection>
         <GTiles fill={true}>
-          {
-            renderData(features)
-          }
+          { renderData(features) }
         </GTiles>
         <GSection appCentered={true} justify="center" align="center" full={true}>
           <GHeading strong={true} tag="h2" style={{ paddingTop: '12px' }}>SHARE</GHeading>
@@ -57,10 +53,20 @@ const Home = ({ data }) => {
   );
 };
 
+function renderLastData(features = []) {
+  if (features[0]) {
+    const p = features[0].properties;
+    const text = `Last earthquake was ${timeSince(new Date(p.time))} ago`;
+
+    return <p>{ text }</p>;
+  }
+
+  return null;
+}
+
 function renderData(features = []) {
   return features.map((feature, i) => {
     const p = feature.properties;
-    console.log(p);
     const heading = `Magnitude ${p.mag}`;
 
     return (
@@ -79,7 +85,6 @@ function renderData(features = []) {
     );
   });
 }
-
 
 function formatDate(date) {
   const monthNames = [
