@@ -9,6 +9,7 @@ import GLabel from 'grommet/components/Label';
 import GTiles from 'grommet/components/Tiles';
 import GTile from 'grommet/components/Tile';
 import GAnchor from 'grommet/components/Anchor';
+import GImage from 'grommet/components/Image';
 
 import GDown from 'grommet/components/icons/base/Down';
 import GSocialFacebook from 'grommet/components/icons/base/SocialFacebook';
@@ -37,9 +38,9 @@ const Home = ({ data }) => {
         </GTiles>
         <GSection appCentered={true} justify="center" align="center" full={true}>
           <GHeading strong={true} tag="h2" style={{ paddingTop: '12px' }}>SHARE</GHeading>
-          <p>
+          <GParagraph>
             Always be prepared
-          </p>
+          </GParagraph>
           <GFooter justify="center" align="center">
             <GAnchor> 
               <GSocialFacebook />
@@ -59,7 +60,7 @@ function renderLastData(features = []) {
     const p = features[0].properties;
     const text = `Last earthquake was ${timeSince(new Date(p.time))} ago`;
 
-    return <p>{ text }</p>;
+    return <GParagraph>{ text }</GParagraph>;
   }
 
   return null;
@@ -68,8 +69,10 @@ function renderLastData(features = []) {
 function renderData(features = []) {
   return features.map((feature, i) => {
     const p = feature.properties;
-    const heading = `Magnitude ${p.mag}`;
+    const heading = `${p.mag}`;
     const formattedDate = new Date(p.time);
+    const pid = p.ids.split(',')[1];
+    const imageUrl = `https://earthquake.usgs.gov/archive/product/dyfi/${pid}/us/${p.updated}/${pid}_ciim_geo.jpg`;
 
     return (
       <GTile key={i}>
@@ -79,9 +82,20 @@ function renderData(features = []) {
           margin="medium"
           style={{ paddingBottom: '0px', width: '300px' }}
         >
-          <GHeading tag="h3" style={{ marginBottom: '0px' }}>{ heading }</GHeading>
-          <p>{ p.place }</p>
-          <p>{ `${formatDate(formattedDate)} at ${formatTime(formattedDate)}` }</p>
+          {
+            p.types.split(',').indexOf('dyfi') > -1 ? (
+              <GBox>
+                <GImage src={imageUrl} />
+              </GBox>
+            ) : <span />
+          }
+          <GAnchor href={p.url}>
+            <GHeading strong={true} align="center" tag="h4" style={{ marginBottom: '0px' }}>{ `MAGNITUDE ${heading}` }</GHeading>
+          </GAnchor>
+          <GParagraph align="center">{ p.place }</GParagraph>
+          <GBox style={{ paddingBottom: '10px' }}>
+            <GLabel align="center" size="small">{ `${formatDate(formattedDate)} at ${formatTime(formattedDate)}` }</GLabel>
+          </GBox>
         </GBox>
       </GTile>
     );
